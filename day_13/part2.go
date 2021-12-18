@@ -121,5 +121,4 @@ func (ds dotSheet) display() string {
 		sb.WriteRune('\n')
 	}
 	return sb.String()
-
 }
