@@ -109,21 +109,17 @@ func (ds dotSheet) display() string {
 			maxY = d.y
 		}
 	}
-	dotDisplay := [][]rune{}
-	for y := 0; y <= maxY; y++ {
-		dotDisplay = append(dotDisplay, []rune{})
-		for x := 0; x <= maxX; x++ {
-			r := '.'
-			if ds[dot{x, y}] {
-				r = '#'
-			}
-			dotDisplay[y] = append(dotDisplay[y], r)
-		}
-	}
 	var sb strings.Builder
-	for _, row := range dotDisplay {
-		sb.WriteString(string(row))
-		sb.WriteString("\n")
+	for y := 0; y <= maxY; y++ {
+		for x := 0; x <= maxX; x++ {
+			if ds[dot{x, y}] {
+				sb.WriteRune('#')
+			} else {
+				sb.WriteRune('.')
+			}
+		}
+		sb.WriteRune('\n')
 	}
 	return sb.String()
+
 }
