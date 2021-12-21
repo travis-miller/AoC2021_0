@@ -17,7 +17,7 @@ func main() {
 	for _, c := range string(input) {
 		num, err := strconv.ParseInt(string([]rune{c}), 16, 64)
 		if err != nil {
-			log.Fatalf("Failed to convert %c into integer. Not a hex character.", c)
+			log.Fatalf("Failed to convert %c into integer: %v", c, err)
 		}
 		sb.WriteString(fmt.Sprintf("%04b", num))
 	}
@@ -98,7 +98,7 @@ func parseSubLength(encoded []string, ptr *int) (int, int) {
 		*ptr++
 		length, err := strconv.ParseInt(strings.Join(encoded[*ptr:*ptr+15], ""), 2, 64)
 		if err != nil {
-			log.Fatalf("Failed to parse type ID: %v", err)
+			log.Fatalf("Failed to parse length: %v", err)
 		}
 		*ptr += 15
 		return 0, int(length)
@@ -106,7 +106,7 @@ func parseSubLength(encoded []string, ptr *int) (int, int) {
 		*ptr++
 		length, err := strconv.ParseInt(strings.Join(encoded[*ptr:*ptr+11], ""), 2, 64)
 		if err != nil {
-			log.Fatalf("Failed to parse type ID: %v", err)
+			log.Fatalf("Failed to parse length: %v", err)
 		}
 		*ptr += 11
 		return 1, int(length)
